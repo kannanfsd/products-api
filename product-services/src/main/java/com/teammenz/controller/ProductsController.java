@@ -22,11 +22,11 @@ import java.util.Optional;
     name = "Team Menz Panel-Task for Products API Services",
     description = "TEAM MENZ - Panel task Backend as Java17, Hibernate and SpringBoot"
 )
+@CrossOrigin(origins="http://localhost:4200")
 @RestController
-@RequestMapping(path = "/panel-task/api", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path = "/products/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @AllArgsConstructor
 @Validated
-@CrossOrigin(origins="http://localhost:4200")
 public class ProductsController {
 
     private ProductService productService;
