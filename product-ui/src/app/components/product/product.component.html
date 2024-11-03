@@ -1,0 +1,50 @@
+
+<H1>Product</H1>
+
+<div class="container">
+  <!-- <div class="alert alert-warning" *ngIf="productForm.dirty && productForm.invalid">Enter valid values</div>
+  <div class="alert alert-warning" *ngIf="productForm.dirty && description.invalid">Enter atleast 5 characters in Description</div> -->
+
+  <form (ngSubmit)="!productForm.invalid && saveProduct()" #productForm="ngForm">
+
+    <fieldset class="form-group">
+      <label>Product Name</label>
+      <input type="text" #pname="ngModel"
+            [(ngModel)]="cproduct.name" class="form-control"
+            name="name" required="required">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label>Description</label>
+      <input type="text" #description="ngModel"
+            [(ngModel)]="cproduct.description" class="form-control"
+                name="description" required="required">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label>Price</label>
+      <input type="text" #price="ngModel"
+            [(ngModel)]="cproduct.price" class="form-control"
+                name="price" required="required">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label>Quantity</label>
+      <input type="text" #quantity="ngModel"
+            [(ngModel)]="cproduct.quantity" class="form-control"
+                name="quantity" required="required">
+    </fieldset>
+
+    <fieldset class="form-group">
+      <label>Category</label>
+      <select (change)="onProductChange($event)" [(ngModel)]="selectedCategory" class="form-control">
+        <option selected>--seleted--</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+    </fieldset>
+
+    <button type="submit" class="btn btn-success">Save</button>
+  </form>
+</div>

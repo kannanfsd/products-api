@@ -1,11 +1,14 @@
-package com.teammenz.service;
+package com.teammenz.service.impl;
 
 import com.teammenz.dto.ProductDto;
 import com.teammenz.entity.Category;
 import com.teammenz.entity.Product;
 import com.teammenz.exception.ResourceNotFoundException;
 import com.teammenz.repository.ProductRepository;
+import com.teammenz.service.IProductService;
+import com.teammenz.service.NotificationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +21,8 @@ public class ProductService implements IProductService {
 
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
+    @Autowired
+    private NotificationService notificationService;
 
     public List<ProductDto> getAllProducts() {
         return productRepository.findAll().stream().map(Product::getProductDto).collect(Collectors.toList());
@@ -73,5 +78,9 @@ public class ProductService implements IProductService {
             return true;
         }
         return false;
+    }
+
+    public List<ProductDto> getProductsByCategoryId(Long categoryId) {
+        return productRepository.findByCategoryId(categoryId).stream().map(Product::getProductDto).collect(Collectors.toList());
     }
 }

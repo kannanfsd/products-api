@@ -4,11 +4,9 @@ import com.teammenz.constant.ProductConstant;
 import com.teammenz.dto.ProductDto;
 import com.teammenz.dto.ResponseDto;
 import com.teammenz.entity.Product;
-import com.teammenz.service.ProductService;
+import com.teammenz.service.impl.ProductService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Tag(
     name = "Team Menz Panel-Task for Products API Services",
@@ -24,24 +21,24 @@ import java.util.Optional;
 )
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
-@RequestMapping(path = "/products/api", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path = "/api/products", produces = {MediaType.APPLICATION_JSON_VALUE})
 @AllArgsConstructor
 @Validated
 public class ProductsController {
 
     private ProductService productService;
 
-    @GetMapping("/fetch")
+    @GetMapping()
     public List<ProductDto> getAllProducts() {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/fetch/{id}")
+    @GetMapping("/{id}")
     public ProductDto getProductById(@PathVariable Long id) {
         return productService.getProductById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public ResponseEntity<ResponseDto> createProduct(@RequestBody ProductDto productDto) {
         productService.createProduct(productDto);
         return ResponseEntity
@@ -50,7 +47,7 @@ public class ProductsController {
 
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ResponseDto> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
         boolean isUpdated = productService.updateProduct(id, productDto);
         if(isUpdated){
@@ -63,7 +60,7 @@ public class ProductsController {
                     .body(new ResponseDto(ProductConstant.STATUS_417, ProductConstant.MESSAGE_417_UPDATE));
         }
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDto> deleteProduct(@PathVariable Long id) {
         boolean isDeleted = productService.deleteProduct(id);
         if(isDeleted){
@@ -75,5 +72,10 @@ public class ProductsController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(ProductConstant.STATUS_417, ProductConstant.MESSAGE_417_DELETE));
         }
+    }
+
+    @GetMapping("/category")
+    public List<ProductDto> getProductsByCategoryId(@RequestParam Long categoryId) {
+        return productService.getProductsByCategoryId(categoryId);
     }
 }

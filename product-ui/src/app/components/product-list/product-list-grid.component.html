@@ -1,0 +1,19 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <button (click)="addProduct()" class="btn btn-primary">Add New Product</button>
+      <div class="row"></div>
+      <div class="row">
+        <div *ngFor="let product of products" class="col-md-3">
+            <div class="product-box">
+              <img src="../../../assets/images/placeholder.png" class="img-responsive">
+              <h1>{{ product.name }}</h1>
+              <div class="price">{{product.price | currency: 'USD'}}</div>
+              <button (click)="updateProduct(product.id)" class="btn btn-success">Update</button>
+              <button (click)="deleteProduct(product.id)" class="btn btn-warning">Delete</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

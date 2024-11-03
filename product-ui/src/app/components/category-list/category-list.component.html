@@ -1,0 +1,5 @@
+<ul class="list-unstyled navbar-list" *ngFor="let category of categories">
+  <li>
+    <a [routerLink]="['/category']" [queryParams]="{categoryId: category.id}">{{category.name}}</a>
+  </li>
+</ul>
