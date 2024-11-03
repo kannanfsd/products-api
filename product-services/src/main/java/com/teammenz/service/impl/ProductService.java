@@ -46,6 +46,9 @@ public class ProductService implements IProductService {
             product.setQuantity(productDto.getQuantity());
             product.setCategory(optionalCategory.get());
             productRepository.save(product);
+            if(productDto.getCategoryId() == 1) {
+                notificationService.sendNotification("New product added: " + product.getName());
+            }
             isCreated = true;
         }
         return isCreated;
